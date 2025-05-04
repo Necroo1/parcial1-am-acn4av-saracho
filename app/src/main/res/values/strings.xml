@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">parcial1-am-acn4av-saracho</string>
     <string name="stock">Stock</string>
+    <string name="category_fruits">Frutas</string>
+    <string name="category_vegetables">Verduras</string>
+    <string name="category_white_meats">Carnes blancas</string>
+    <string name="category_dairy">Lácteos</string>
+    <string name="category_red_meats">Carnes rojas</string>
 </resources>

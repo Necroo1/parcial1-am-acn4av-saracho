@@ -31,5 +31,64 @@
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <HorizontalScrollView
+        android:id="@+id/categories_scroll_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@+id/title_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <LinearLayout
+            android:id="@+id/categories_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp">
+
+            <Button
+                android:id="@+id/category_fruits_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:backgroundTint="@color/secondary_yellow"
+                android:text="@string/category_fruits" />
+
+            <Button
+                android:id="@+id/category_vegetables_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:backgroundTint="@color/primary_green"
+                android:text="@string/category_vegetables" />
+
+            <Button
+                android:id="@+id/category_white_meats_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:backgroundTint="@color/tertiary_purple"
+                android:text="@string/category_white_meats" />
+
+            <Button
+                android:id="@+id/category_dairy_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:backgroundTint="@color/accent_blue"
+                android:text="@string/category_dairy" />
+
+            <Button
+                android:id="@+id/category_red_meats_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:backgroundTint="@color/black"
+                android:text="@string/category_red_meats" />
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
