@@ -91,4 +91,16 @@
         </LinearLayout>
 
     </HorizontalScrollView>
+    <TextView
+        android:id="@+id/selected_category_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/category_fruits"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/categories_scroll_view" />
 </androidx.constraintlayout.widget.ConstraintLayout>
