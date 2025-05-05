@@ -53,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="4dp"
-                android:backgroundTint="@color/secondary_yellow"
+                android:backgroundTint="@color/primary_green"
                 android:text="@string/category_fruits" />
 
             <Button
@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="4dp"
-                android:backgroundTint="@color/primary_green"
+                android:backgroundTint="@color/secondary_yellow"
                 android:text="@string/category_vegetables" />
 
             <Button
