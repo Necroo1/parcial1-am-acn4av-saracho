@@ -115,8 +115,8 @@
         android:id="@+id/selected_category_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="28dp"
         android:text="@string/category_fruits"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -128,10 +128,10 @@
         android:id="@+id/imageView"
         android:layout_width="389dp"
         android:layout_height="484dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="96dp"
         app:layout_constraintBottom_toTopOf="@+id/addButtonContainer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintHorizontal_bias="0.272"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ejemplo" />
 
