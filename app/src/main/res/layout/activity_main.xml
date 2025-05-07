@@ -5,41 +5,55 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/bacground"
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/title_bar"
         android:layout_width="411dp"
         android:layout_height="64dp"
-        android:background="@color/primary_green"
+        android:background="@color/yellow"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/stock_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="154dp"
+            android:layout_height="34dp"
             android:text="@string/stock"
             android:textColor="@color/black"
-            android:textSize="34sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.155"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.533" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="29dp"
+            android:layout_height="33dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/stock_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/back" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <HorizontalScrollView
         android:id="@+id/categories_scroll_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:scrollbars="none"
-        app:layout_constraintTop_toBottomOf="@+id/title_bar"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/title_bar">
 
         <LinearLayout
             android:id="@+id/categories_layout"
@@ -53,40 +67,45 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="4dp"
-                android:backgroundTint="@color/primary_green"
-                android:text="@string/category_fruits" />
+                android:backgroundTint="@color/color_buttons"
+                android:text="@string/category_fruits"
+                android:textColor="@color/black" />
 
             <Button
                 android:id="@+id/category_vegetables_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="4dp"
-                android:backgroundTint="@color/secondary_yellow"
-                android:text="@string/category_vegetables" />
+                android:backgroundTint="@color/color_buttons"
+                android:text="@string/category_vegetables"
+                android:textColor="@color/black" />
 
             <Button
                 android:id="@+id/category_white_meats_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="4dp"
-                android:backgroundTint="@color/tertiary_purple"
-                android:text="@string/category_white_meats" />
+                android:backgroundTint="@color/color_buttons"
+                android:text="@string/category_white_meats"
+                android:textColor="@color/black" />
 
             <Button
                 android:id="@+id/category_dairy_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="4dp"
-                android:backgroundTint="@color/accent_blue"
-                android:text="@string/category_dairy" />
+                android:backgroundTint="@color/color_buttons"
+                android:text="@string/category_dairy"
+                android:textColor="@color/black" />
 
             <Button
                 android:id="@+id/category_red_meats_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="4dp"
-                android:backgroundTint="@color/black"
-                android:text="@string/category_red_meats" />
+                android:backgroundTint="@color/color_buttons"
+                android:text="@string/category_red_meats"
+                android:textColor="@color/black" />
 
         </LinearLayout>
 
@@ -105,15 +124,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/categories_scroll_view" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="389dp"
+        android:layout_height="484dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/addButtonContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ejemplo" />
+
     <LinearLayout
         android:id="@+id/addButtonContainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="end"
+        android:orientation="horizontal"
         android:padding="16dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent"></LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
