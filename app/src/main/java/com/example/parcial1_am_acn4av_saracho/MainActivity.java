@@ -1,5 +1,6 @@
 package com.example.parcial1_am_acn4av_saracho;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -87,6 +89,13 @@ public class MainActivity extends AppCompatActivity {
                 // Aquí iría la lógica para abrir la pantalla de carga de ingredientes
                 Log.d("MainActivity", "Botón '+' clickeado");
             }
+        });
+
+        ImageButton backButton = findViewById(R.id.imageButton);
+        backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 }
