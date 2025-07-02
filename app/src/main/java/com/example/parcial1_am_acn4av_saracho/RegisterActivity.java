@@ -1,11 +1,11 @@
 package com.example.parcial1_am_acn4av_saracho;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,76 +20,104 @@ import com.google.firebase.firestore.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
-    private EditText etEmail, etPassword;
-    private Button btnLogin;
-    private SignInButton btnGoogleSignIn;
-    private TextView tvRegisterLink; // Solo si usás link a registro
+    private EditText etNombre, etApellido, etEmail, etPassword, etConfirmarPassword;
+    private Button btnRegistrate;
+    private TextView tvLoginLink;
+    private SignInButton btnGoogleRegister;
 
     private FirebaseAuth mAuth;
-    private GoogleSignInClient mGoogleSignInClient;
     private FirebaseFirestore db;
+    private GoogleSignInClient mGoogleSignInClient;
 
-    private static final int RC_SIGN_IN = 100;
+    private static final int RC_SIGN_IN = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register); // Usá tu XML
 
+        etNombre = findViewById(R.id.etNombre);
+        etApellido = findViewById(R.id.etApellido);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
-        btnLogin = findViewById(R.id.btnLogin);
-        btnGoogleSignIn = findViewById(R.id.btnGoogleSignIn);
-
+        etConfirmarPassword = findViewById(R.id.etConfirmarPassword);
+        btnRegistrate = findViewById(R.id.btnRegistrate);
+        tvLoginLink = findViewById(R.id.tvLoginLink);
+        btnGoogleRegister = findViewById(R.id.btnGoogleRegister);
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        // --- Login tradicional ---
-        btnLogin.setOnClickListener(v -> {
+        // --- Registro tradicional ---
+        btnRegistrate.setOnClickListener(v -> {
+            String nombre = etNombre.getText().toString().trim();
+            String apellido = etApellido.getText().toString().trim();
             String email = etEmail.getText().toString().trim();
             String password = etPassword.getText().toString().trim();
+            String confirmar = etConfirmarPassword.getText().toString().trim();
 
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Complete ambos campos", Toast.LENGTH_SHORT).show();
+            if (TextUtils.isEmpty(nombre) || TextUtils.isEmpty(apellido) || TextUtils.isEmpty(email)
+                    || TextUtils.isEmpty(password) || TextUtils.isEmpty(confirmar)) {
+                Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (!password.equals(confirmar)) {
+                Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (password.length() < 6) {
+                Toast.makeText(this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            mAuth.signInWithEmailAndPassword(email, password)
+            mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            // Login OK
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            finish();
+                            String uid = mAuth.getCurrentUser().getUid();
+                            Map<String, Object> userMap = new HashMap<>();
+                            userMap.put("nombre", nombre);
+                            userMap.put("apellido", apellido);
+                            userMap.put("email", email);
+                            userMap.put("creado", FieldValue.serverTimestamp());
+                            db.collection("usuarios").document(uid)
+                                    .set(userMap)
+                                    .addOnSuccessListener(aVoid -> {
+                                        Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show();
+                                        // Redirige a Login
+                                        startActivity(new Intent(this, LoginActivity.class));
+                                        finish();
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Toast.makeText(this, "Error guardando usuario", Toast.LENGTH_SHORT).show();
+                                    });
                         } else {
-                            Toast.makeText(this, "Email o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                            String msg = "Error: ";
+                            if (task.getException() != null) {
+                                msg += task.getException().getMessage();
+                            }
+                            Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
                         }
                     });
         });
 
-        // --- Login con Google ---
+        // --- Ir a login ---
+        tvLoginLink.setOnClickListener(v ->
+                startActivity(new Intent(this, LoginActivity.class))
+        );
+
+        // --- Registro con Google ---
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        btnGoogleSignIn.setOnClickListener(v -> {
+        btnGoogleRegister.setOnClickListener(v -> {
             Intent signInIntent = mGoogleSignInClient.getSignInIntent();
             startActivityForResult(signInIntent, RC_SIGN_IN);
         });
-
-        // (Opcional) Ir a registro
-
-        TextView tvRegisterLink = findViewById(R.id.tvRegisterLink);
-
-        tvRegisterLink.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-            startActivity(intent);
-        });
-
     }
 
     @Override
@@ -102,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
-                Toast.makeText(this, "Error con Google Sign-In", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Error con Google Sign-In: " + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -117,8 +145,7 @@ public class LoginActivity extends AppCompatActivity {
                             DocumentReference userRef = db.collection("usuarios").document(user.getUid());
                             userRef.get().addOnSuccessListener(document -> {
                                 if (!document.exists()) {
-                                    Map<String, Object> userMap = new HashMap<>();
-                                    // Lógica de nombre, apellido, email, creado (como en la respuesta anterior)
+                                    // Obtener nombre/apellido del displayName de Google
                                     String displayName = user.getDisplayName();
                                     String nombre = "";
                                     String apellido = "";
@@ -129,42 +156,38 @@ public class LoginActivity extends AppCompatActivity {
                                     } else if (displayName != null) {
                                         nombre = displayName;
                                     }
+                                    Map<String, Object> userMap = new HashMap<>();
                                     userMap.put("nombre", nombre);
                                     userMap.put("apellido", apellido);
                                     userMap.put("email", user.getEmail());
-                                    userMap.put("creado", com.google.firebase.firestore.FieldValue.serverTimestamp());
-
+                                    userMap.put("creado", FieldValue.serverTimestamp());
                                     userRef.set(userMap)
                                             .addOnSuccessListener(aVoid -> {
-                                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                                Toast.makeText(this, "Registro con Google exitoso", Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(this, LoginActivity.class));
                                                 finish();
                                             })
                                             .addOnFailureListener(e -> {
                                                 Toast.makeText(this, "Error guardando usuario", Toast.LENGTH_SHORT).show();
                                             });
                                 } else {
-                                    // Usuario ya existe, simplemente redirigí
-                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                    // Usuario ya existe
+                                    Toast.makeText(this, "Ya existe un usuario con esta cuenta", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(this, LoginActivity.class));
                                     finish();
                                 }
                             });
                         } else {
-                            // Fallback si user es null
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            startActivity(new Intent(this, LoginActivity.class));
                             finish();
                         }
                     } else {
-                        String errorMsg = "Error autenticando con Google: ";
+                        String msg = "Error autenticando con Google: ";
                         if (task.getException() != null) {
-                            errorMsg += task.getException().getMessage();
+                            msg += task.getException().getMessage();
                         }
-                        Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
                     }
                 });
     }
-
 }
-
-
-
-
