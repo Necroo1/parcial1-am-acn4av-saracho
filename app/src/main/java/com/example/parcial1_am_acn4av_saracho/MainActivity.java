@@ -100,13 +100,16 @@ public class MainActivity extends AppCompatActivity {
 
         // --- BARRA DE NAVEGACIÓN INFERIOR ---
         ImageButton btnIngredientes = findViewById(R.id.ingredientes);
-        ImageButton btnRecetas = findViewById(R.id.recetas);
-
-        // Estamos en ingredientes: deshabilitar el botón de Ingredientes
+        ImageButton btnRecetas = findViewById(R.id.recetin);
+        ImageButton btnRecetin2 = findViewById(R.id.recetin2);
         btnIngredientes.setEnabled(false);
-
         btnRecetas.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, RecetasActivity.class);
+            startActivity(intent);
+            finish();
+        });
+        btnRecetin2.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, RecetinActivity.class);
             startActivity(intent);
             finish();
         });

@@ -81,8 +81,6 @@ public class LoginActivity extends AppCompatActivity {
             startActivityForResult(signInIntent, RC_SIGN_IN);
         });
 
-        // (Opcional) Ir a registro
-
         TextView tvRegisterLink = findViewById(R.id.tvRegisterLink);
 
         tvRegisterLink.setOnClickListener(v -> {

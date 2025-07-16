@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FAFAFA">
 
-    <!-- Header amarillo con búsqueda -->
+
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="0dp"
@@ -50,7 +50,6 @@
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 
-    <!-- Etiqueta: Explorá culturas -->
     <TextView
         android:id="@+id/tvExplora"
         android:layout_width="wrap_content"
@@ -64,7 +63,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"/>
 
-    <!-- Barra de filtros -->
+
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
         android:layout_width="0dp"
@@ -135,7 +134,7 @@
         </LinearLayout>
     </HorizontalScrollView>
 
-    <!-- Etiqueta: Recetas -->
+
     <TextView
         android:id="@+id/tvTituloRecetas"
         android:layout_width="wrap_content"
@@ -149,7 +148,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"/>
 
-    <!-- RecyclerView (lista de recetas) -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerRecetas"
         android:layout_width="0dp"
@@ -160,7 +158,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Footer/Menu inferior -->
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
@@ -172,7 +169,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <!-- Tus ImageButtons aquí -->
         <ImageButton
             android:id="@+id/ingredientes"
             android:layout_width="0dp"
@@ -184,7 +180,7 @@
             android:contentDescription="Ingredientes"/>
 
         <ImageButton
-            android:id="@+id/recetas"
+            android:id="@+id/recetin"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -192,5 +188,15 @@
             android:scaleType="centerInside"
             app:srcCompat="@drawable/recetas"
             android:contentDescription="Recetas"/>
+
+        <ImageButton
+            android:id="@+id/recetin2"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:contentDescription="Recetinicon"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/recetin_iccon"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

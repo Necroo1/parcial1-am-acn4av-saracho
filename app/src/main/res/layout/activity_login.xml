@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Título -->
+
         <TextView
             android:id="@+id/tvLoginTitle"
             android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
             android:textColor="#000"
             android:layout_marginBottom="32dp"/>
 
-        <!-- Email -->
+
         <EditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
@@ -88,7 +88,7 @@
                 android:textSize="14sp"/>
         </LinearLayout>
 
-        <!-- Separador -->
+
         <TextView
             android:id="@+id/tvSeparator"
             android:layout_width="wrap_content"
@@ -99,7 +99,7 @@
             android:layout_marginTop="6dp"
             android:layout_marginBottom="6dp"/>
 
-        <!-- Botón Google Sign-In -->
+
         <com.google.android.gms.common.SignInButton
             android:id="@+id/btnGoogleSignIn"
             android:layout_width="match_parent"
