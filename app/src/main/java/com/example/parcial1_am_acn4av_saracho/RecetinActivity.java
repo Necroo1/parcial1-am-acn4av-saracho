@@ -41,7 +41,7 @@ public class RecetinActivity extends AppCompatActivity {
         // Mensaje predeterminado
         chatAdapter.addMessage(new ChatMessage("¿Qué te gustaría cocinar hoy? Contame qué ingredientes tenés.", false));
 
-        chatGPT = new ChatGPT("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");
+        chatGPT = new ChatGPT("");
 
         btnEnviar.setOnClickListener(v -> enviarMensaje());
 
